@@ -1,6 +1,6 @@
 using System;
 
-namespace RegisterMicroService
+namespace UserRegistration
 {
     public class WeatherForecast
     {

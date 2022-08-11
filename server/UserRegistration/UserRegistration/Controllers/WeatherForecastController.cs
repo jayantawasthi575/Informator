@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RegisterMicroService.Controllers
+namespace UserRegistration.Controllers
 {
     [ApiController]
     [Route("[controller]")]

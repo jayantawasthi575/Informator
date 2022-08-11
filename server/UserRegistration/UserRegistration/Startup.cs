@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RegisterMicroService
+namespace UserRegistration
 {
     public class Startup
     {
@@ -30,7 +30,7 @@ namespace RegisterMicroService
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "RegisterMicroService", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "UserRegistration", Version = "v1" });
             });
         }
 
@@ -41,7 +41,7 @@ namespace RegisterMicroService
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "RegisterMicroService v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "UserRegistration v1"));
             }
 
             app.UseHttpsRedirection();
