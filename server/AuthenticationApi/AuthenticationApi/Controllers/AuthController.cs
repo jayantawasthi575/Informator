@@ -1,4 +1,5 @@
-﻿using AuthenticationApi.Model;
+﻿using AuthenticationApi.DatabaseContext;
+using AuthenticationApi.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,9 +18,11 @@ namespace AuthenticationApi.Controllers
     public class AuthController : ControllerBase
     {
         private IConfiguration _config;
-        public AuthController(IConfiguration config)
+        private readonly ApplicationDbContext _context;
+        public AuthController(IConfiguration config, ApplicationDbContext context)
         {
             _config = config;
+            _context = context;
         }
         [AllowAnonymous]
         [HttpPost]
@@ -39,7 +42,7 @@ namespace AuthenticationApi.Controllers
 
             return response;
         }
-        private string GenerateJsonWebToken(User user)
+        private string GenerateJsonWebToken(UserRegister user)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
@@ -62,9 +65,9 @@ namespace AuthenticationApi.Controllers
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
-        private User Authenticate(Login userLogin)
+        private UserRegister Authenticate(Login userLogin)
         {
-            var currentUser = Data.Users.FirstOrDefault(o => o.Email.ToLower() == userLogin.Email.ToLower() && o.Password == userLogin.Password); 
+            var currentUser = _context.UserRegisters.FirstOrDefault(o => o.Email.ToLower() == userLogin.Email.ToLower() && o.Password == userLogin.Password); 
 
             if (currentUser != null)
             {
