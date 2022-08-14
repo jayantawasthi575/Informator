@@ -6,7 +6,7 @@ function Navbar() {
             <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
                 <div class="container-fluid">
                     <Link class="navbar-brand" to="/">Informator</Link>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
@@ -19,6 +19,18 @@ function Navbar() {
                             </li>
                             <li class="nav-item">
                                 <Link class="nav-link" to="/signup" style={{ color: "white" }}>SignUp</Link>
+                            </li>
+                            <li class="nav-item">
+                                <Link class="nav-link" to="/updateprofile" style={{ color: "white" }}>UpdateProfile</Link>
+                            </li>
+                            <li class="nav-item">
+                                <Link class="nav-link" to="/profile" style={{ color: "white" }}>Profile</Link>
+                            </li>
+                            <li class="nav-item">
+                                <Link class="nav-link" to="/writereport" style={{ color: "white" }}>WriteReport</Link>
+                            </li>
+                            <li class="nav-item">
+                                <Link class="nav-link" to="/report" style={{ color: "white" }}>Report</Link>
                             </li>
                         </ul>
                     </div>

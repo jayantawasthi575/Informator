@@ -1,12 +1,16 @@
 import Navbar from "./Navbar";
 import './App.css'
+import { useContext } from "react";
+import AuthContext from './AuthContext'
+import AfterLoginNav from "./AfterLoginNav";
 function Home() {
+    const { loggedIn, getloggedin } = useContext(AuthContext)
     const img_urll = process.env.PUBLIC_URL + "./assests/images/thumbnail.svg"
     return (
         <>
-            <Navbar />
+            {loggedIn === false && <Navbar />}
+            {loggedIn===true && <AfterLoginNav/>}
             <main role="main">
-
                 <section className="jumbotron text-center">
                     <div className="container">
                         <h1 className="jumbotron-heading">Album example</h1>

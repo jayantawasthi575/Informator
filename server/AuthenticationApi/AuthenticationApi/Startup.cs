@@ -47,6 +47,14 @@ namespace AuthenticationApi
                     };
                 });
             services.AddControllers();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("MyCorsPolicy", builder => builder.AllowAnyOrigin()
+                           .AllowAnyMethod()
+                           .AllowAnyHeader()
+                           .AllowCredentials()
+                           .WithOrigins("http://localhost:3000"));
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "AuthenticationApi", Version = "v1" });
@@ -68,6 +76,8 @@ namespace AuthenticationApi
             app.UseRouting();
 
             app.UseAuthentication();
+
+            app.UseCors("MyCorsPolicy");
 
             app.UseAuthorization();
 

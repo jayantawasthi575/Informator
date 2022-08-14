@@ -31,8 +31,13 @@ namespace UserRegistration
             services.AddDbContext<ApplicationDbContext>
                (options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllers();
-            services.AddSwaggerGen(c =>
+            services.AddCors(options =>
             {
+                options.AddPolicy("MyCorsPolicy", builder => builder.AllowAnyOrigin()
+                           .AllowAnyMethod()
+                           .AllowAnyHeader()
+                           .AllowCredentials()
+                           .WithOrigins("http://localhost:3000"));
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "UserRegistration", Version = "v1" });
             });
         }
@@ -50,6 +55,10 @@ namespace UserRegistration
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
+
+            app.UseCors("MyCorsPolicy");
 
             app.UseAuthorization();
 

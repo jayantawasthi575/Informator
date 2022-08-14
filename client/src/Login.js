@@ -1,6 +1,37 @@
+import { useState,useEffect } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
+import { useContext } from "react";
+import AuthContext from "./AuthContext.jsx";
+import { useNavigate } from 'react-router-dom'
+import axios from "axios"
 function Login() {
+    const [email,setEmail]=useState("")
+    const [pass,setPass]=useState("")
+    const [correct,setcorrect]=useState(undefined)
+    const {loggedIn,getloggedin}=useContext(AuthContext)
+    let history=useNavigate()
+    async function login(e){
+        e.preventDefault()
+        try {
+            const logindata={
+                    "email":email,
+                     "password":pass
+            }
+            const data=localStorage.getItem("token")
+            console.log("login data",logindata)
+            const loggedinres=await axios.post("https://localhost:5004/api/Auth",logindata,{ withCredentials: true })
+            setcorrect(loggedinres.data)
+            console.log(loggedinres)
+            console.log({correct})
+            localStorage.setItem("token",loggedinres.data.token)
+            getloggedin()
+            history("/", { replace: true });
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    useEffect(()=>{if(loggedIn){history("/",{replace:true})}},[])
     return (
         <>
             <Navbar />
@@ -15,14 +46,14 @@ function Login() {
                                 <h4 className="card-title mt-2">LogIn</h4>
                             </header>
                             <article className="card-body">
-                                <form>
+                                <form onSubmit={login}>
                                     <div className="form-group">
                                         <label>Email address</label>
-                                        <input type="email" className="form-control" placeholder="" required/>
+                                        <input type="email" className="form-control" placeholder="" onChange={(e)=>{setEmail(e.target.value)}} required/>
                                     </div>
                                     <div className="form-group">
                                         <label>Enter Password</label>
-                                        <input className="form-control" type="password" required/>
+                                        <input className="form-control" type="password" onChange={(e)=>{setPass(e.target.value)}} required/>
                                     </div>
                                     <div className="form-group">
                                         <button type="submit" className="btn btn-primary btn-block"> Login  </button>
