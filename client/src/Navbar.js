@@ -32,6 +32,9 @@ function Navbar() {
                             <li class="nav-item">
                                 <Link class="nav-link" to="/report" style={{ color: "white" }}>Report</Link>
                             </li>
+                            <li class="nav-item">
+                                <Link class="nav-link" to="/check" style={{ color: "white" }}>Check</Link>
+                            </li>
                         </ul>
                     </div>
                 </div>

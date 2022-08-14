@@ -1,4 +1,5 @@
 ﻿using InformerReport.Model;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -6,6 +7,7 @@ using System.IO;
 
 namespace InformerReport.Controllers
 {
+    [EnableCors("MyCorsPolicy")]
     [Route("api/[controller]")]
     [ApiController]
     public class FormfilesController : ControllerBase

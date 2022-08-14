@@ -28,7 +28,15 @@ namespace InformerReport
         {
 
             services.AddControllers();
-            services.AddSwaggerGen(c =>
+            services.AddCors(options =>
+            {
+                options.AddPolicy("MyCorsPolicy", builder => builder.AllowAnyOrigin()
+                           .AllowAnyMethod()
+                           .AllowAnyHeader()
+                           .AllowCredentials()
+                           .WithOrigins("http://localhost:3000"));
+            });
+                services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "InformerReport", Version = "v1" });
             });
@@ -47,6 +55,10 @@ namespace InformerReport
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
+
+            app.UseCors("MyCorsPolicy");
 
             app.UseAuthorization();
 

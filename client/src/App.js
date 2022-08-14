@@ -9,6 +9,7 @@ import UpdateProfile from "./UpdateProfile";
 import Profile from "./Profile";
 import WriteReport from "./WriteReport";
 import Report from "./Report";
+import Check from "./Check";
 function App() {
   const { loggedIn } = useContext(AuthContext);
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/updateprofile" element={<UpdateProfile/>}/>
         <Route path="/writereport" element={<WriteReport/>}/>
         <Route path="/report" element={<Report/>}/>
+        <Route path="/check" element={<Check/>}/>
       </Routes>)}
       {loggedIn===true&&(
         <Routes>
