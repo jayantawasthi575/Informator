@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace InformerReport.Controllers
 {
@@ -18,16 +19,18 @@ namespace InformerReport.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
         [HttpPost]
-        public IActionResult Formfi([FromBody]Rep rep)
+        public string Formfi([FromForm]Rep rep)
         {
             if(rep.formfiles!=null)
             {
-                string folder = "books/cover/";
-                folder += rep.formfiles.FileName;
-                string servermodel = Path.Combine(_webHostEnvironment.WebRootPath, folder);
-                rep.formfiles.CopyTo(new FileStream(servermodel, FileMode.Create));
+                //string folder = "books/cover/";
+                string servermodel = Path.Combine(_webHostEnvironment.ContentRootPath, "books/"+"hello");
+                using (var stream = new FileStream(servermodel, FileMode.Create))
+                {
+                    rep.formfiles.CopyTo(stream);
+                }
             }
-            return Ok();
+            return "hello";
         }
     }
 }
