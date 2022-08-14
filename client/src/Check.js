@@ -8,17 +8,13 @@ function Check()
     const [myImage,setimgg]=useState()
     async function editho(e){
         e.preventDefault()
-        const formData=new FormData() 
-        formData.append('formfiles',myImage)
+        const formData=new FormData()
+        formData.append("formfiles",myImage)
+        console.log(formData)
         try {
 
-            await axios.post("https://localhost:5001/api/Formfiles",formData,{
-            withCredentials:true,
-            headers: {
-              'content-type': 'multipart/form-data'
-            }
-        })
-
+            const rslt=await axios.post("https://localhost:5001/api/Formfiles",formData)
+            console.log(rslt)
         }catch (error) {
             console.log(error)
         }

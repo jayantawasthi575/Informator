@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace InformerReport.Controllers
@@ -19,18 +21,17 @@ namespace InformerReport.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
         [HttpPost]
-        public string Formfi([FromForm]Rep rep)
+        public  string Formfi([FromForm]Rep rep)
         {
-            if(rep.formfiles!=null)
+            //string folder = "books/cover/";
+            string imageName = new String(Path.GetFileNameWithoutExtension(rep.formfiles.FileName).Take(10).ToArray()).Replace(' ', '-');
+            imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(rep.formfiles.FileName);
+            var imagePath = Path.Combine(_webHostEnvironment.ContentRootPath, "Images", imageName);
+            using (var fileStream = new FileStream(imagePath, FileMode.Create))
             {
-                //string folder = "books/cover/";
-                string servermodel = Path.Combine(_webHostEnvironment.ContentRootPath, "books/"+"hello");
-                using (var stream = new FileStream(servermodel, FileMode.Create))
-                {
-                    rep.formfiles.CopyTo(stream);
-                }
+                rep.formfiles.CopyToAsync(fileStream);
             }
-            return "hello";
+            return imageName;
         }
     }
 }
