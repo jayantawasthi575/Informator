@@ -9,7 +9,7 @@ namespace InformerReport.DatabaseContext
 
         }
 
-        public DbSet<Report> Report { get; set; }
+        public DbSet<Report> Reports { get; set; }
         public DbSet<UserRegister> UserRegisters { get; set; }
     }
 }

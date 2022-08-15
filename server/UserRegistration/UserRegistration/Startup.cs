@@ -38,7 +38,10 @@ namespace UserRegistration
                            .AllowAnyHeader()
                            .AllowCredentials()
                            .WithOrigins("http://localhost:3000"));
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "UserRegistration", Version = "v1" });
+            });
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "AuthenticationApi", Version = "v1" });
             });
         }
 

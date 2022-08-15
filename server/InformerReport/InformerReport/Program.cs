@@ -21,6 +21,7 @@ namespace InformerReport
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    webBuilder.UseUrls("http://localhost:5006", "https://localhost:5008");
                 });
     }
 }

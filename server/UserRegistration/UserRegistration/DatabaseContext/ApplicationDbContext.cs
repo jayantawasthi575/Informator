@@ -10,5 +10,6 @@ namespace UserRegistration.DatabaseContext
 
         }
         public DbSet<UserRegister> UserRegisters { get; set; }
+        public DbSet<Report> Reports { get; set; }
     }
 }

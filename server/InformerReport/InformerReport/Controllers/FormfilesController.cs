@@ -29,7 +29,7 @@ namespace InformerReport.Controllers
             var imagePath = Path.Combine(_webHostEnvironment.ContentRootPath, "Images", imageName);
             using (var fileStream = new FileStream(imagePath, FileMode.Create))
             {
-                rep.formfiles.CopyToAsync(fileStream);
+                rep.formfiles.CopyTo(fileStream);
             }
             return imageName;
         }
