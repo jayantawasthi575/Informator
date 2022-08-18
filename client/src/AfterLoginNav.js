@@ -17,6 +17,21 @@ function AfterLoginNav() {
                             <li class="nav-item">
                                 <Link class="nav-link" to="/logout" style={{ color: "white" }}>Logout</Link>
                             </li>
+                            <li class="nav-item">
+                                <Link class="nav-link" to="/updateprofile" style={{ color: "white" }}>UpdateProfile</Link>
+                            </li>
+                            <li class="nav-item">
+                                <Link class="nav-link" to="/profile" style={{ color: "white" }}>Profile</Link>
+                            </li>
+                            <li class="nav-item">
+                                <Link class="nav-link" to="/writereport" style={{ color: "white" }}>WriteReport</Link>
+                            </li>
+                            <li class="nav-item">
+                                <Link class="nav-link" to="/report" style={{ color: "white" }}>Report</Link>
+                            </li>
+                            <li class="nav-item">
+                                <Link class="nav-link" to="/check" style={{ color: "white" }}>Check</Link>
+                            </li>
                         </ul>
                     </div>
                 </div>

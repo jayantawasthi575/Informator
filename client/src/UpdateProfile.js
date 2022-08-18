@@ -35,7 +35,6 @@ function UpdateProfile() {
     const handleimg=(e)=>{
         setimgurll(URL.createObjectURL(e.target.files[0]))
     }
-    useEffect(()=>{if(loggedIn){history("/",{replace:true})}},[])
     return (
         <>
             <Navbar />

@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UserRegistration.DatabaseContext;
+using UserRegistration.Model;
 
 namespace UserRegistration.Controllers
 {
@@ -17,10 +19,12 @@ namespace UserRegistration.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly ApplicationDbContext _context;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger,ApplicationDbContext conte)
         {
             _logger = logger;
+            _context = conte;
         }
 
         [HttpGet]
@@ -34,6 +38,16 @@ namespace UserRegistration.Controllers
                 Summary = Summaries[rng.Next(Summaries.Length)]
             })
             .ToArray();
+        }
+
+        [HttpGet("userregist")]
+        public IActionResult GetUser()
+        {
+           UserRegister userr=_context.UserRegisters.FirstOrDefault(c=>c.Id==2);
+           List<Report> reportColl = _context.Reports.Where(c => c.ReporterId == 2).ToList();
+            //userr.ReportColl = reportColl;
+           return Ok(userr); 
+
         }
     }
 }

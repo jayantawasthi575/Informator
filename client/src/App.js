@@ -10,6 +10,8 @@ import Profile from "./Profile";
 import WriteReport from "./WriteReport";
 import Report from "./Report";
 import Check from "./Check";
+import ReportProfile from "./ReportProfile";
+import EditReport from "./EditReport";
 function App() {
   const { loggedIn } = useContext(AuthContext);
   return (
@@ -29,6 +31,13 @@ function App() {
         <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/logout" element={<Logout/>}/>
+        <Route path="/profile" element={<Profile/>}/>
+        <Route path="/updateprofile" element={<UpdateProfile/>}/>
+        <Route path="/writereport" element={<WriteReport/>}/>
+        <Route path="/report" element={<Report/>}/>
+        <Route path="/report/:id" element={<ReportProfile/>}/>
+        <Route path="/report/edit/:id" element={<EditReport/>}/>
+        <Route path="/check" element={<Check/>}/>
         </Routes>
       )}
     </div>
