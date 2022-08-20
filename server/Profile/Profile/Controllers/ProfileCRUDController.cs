@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Cors;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Profile.DatabaseContext;
@@ -12,6 +13,7 @@ using System.Security.Claims;
 namespace Profile.Controllers
 {
     [EnableCors("MyCorsPolicy")]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ProfileCRUDController : ControllerBase
@@ -22,6 +24,13 @@ namespace Profile.Controllers
         {
             _context = context;
             Profiler = profileInfo;
+        }
+
+        [HttpGet("viewprofilebyid/{id}")]
+        public IEnumerable<UserRegisterModels> ViewProfileById(int id)
+        {
+            IEnumerable<UserRegisterModels> rslt = Profiler.Users(id);
+            return rslt;
         }
 
         [HttpPut("updateprofilebyid/{id}")]

@@ -13,6 +13,8 @@ import Check from "./Check";
 import ReportProfile from "./ReportProfile";
 import EditReport from "./EditReport";
 import PageNotFound from "./PageNotFound";
+import ViewReport from "./ViewReport";
+import ViewProfile from "./ViewProfile";
 function App() {
   const { loggedIn } = useContext(AuthContext);
   return (
@@ -34,6 +36,8 @@ function App() {
         <Route path="/report" element={<Report/>}/>
         <Route path="/report/:id" element={<ReportProfile/>}/>
         <Route path="/report/edit/:id" element={<EditReport/>}/>
+        <Route path="/viewreport/:id" element={<ViewReport/>}/>
+        <Route path="/viewprofile/:id" element={<ViewProfile/>}/>
         <Route path="/check" element={<Check/>}/>
         <Route path="*" element={<PageNotFound/>}/>
         </Routes>

@@ -22,6 +22,9 @@ namespace InformerReport.Model
 
        [Required]
        public string Photo { get; set; }
+
+        [Required]
+        public int Like { get; set; } = 0;
       
        [Required]
        [ForeignKey("Reporter")]

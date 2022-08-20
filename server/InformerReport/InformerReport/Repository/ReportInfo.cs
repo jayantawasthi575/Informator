@@ -40,6 +40,7 @@ namespace InformerReport.Repository
                 Heading = ReportM.Heading,
                 Content = ReportM.Content,
                 Photo = imageName,
+                Like=0,
                 ReporterId = id
             };
             _context.Reports.Add(report);
@@ -75,6 +76,7 @@ namespace InformerReport.Repository
                 _rep.Content = rep.Content;
                 _rep.Photo = imageName;
                 _rep.ReporterId = _rep.ReporterId;
+                _rep.Like = _rep.Like;
                 _context.SaveChanges();
             }
             return true;
@@ -101,7 +103,8 @@ namespace InformerReport.Repository
                 ReporterId = c.ReporterId,
                 FirstName = c.Reporter.FirstName,
                 LastName = c.Reporter.LastName,
-                Photo=c.Photo
+                Photo=c.Photo,
+                Like=c.Like
             });
             return rsl;
         }

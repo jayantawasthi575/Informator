@@ -2,50 +2,23 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UserRegistration.DatabaseContext;
 
 namespace UserRegistration.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220820171825_again")]
+    partial class again
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("UserRegistration.Model.Comment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("InfoReportId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Message")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("InfoReportId");
-
-                    b.ToTable("Comments");
-                });
 
             modelBuilder.Entity("UserRegistration.Model.Report", b =>
                 {
@@ -133,17 +106,6 @@ namespace UserRegistration.Migrations
                     b.ToTable("UserRegisters");
                 });
 
-            modelBuilder.Entity("UserRegistration.Model.Comment", b =>
-                {
-                    b.HasOne("UserRegistration.Model.Report", "InfoReport")
-                        .WithMany("AllComments")
-                        .HasForeignKey("InfoReportId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("InfoReport");
-                });
-
             modelBuilder.Entity("UserRegistration.Model.Report", b =>
                 {
                     b.HasOne("UserRegistration.Model.UserRegister", "Reporter")
@@ -153,11 +115,6 @@ namespace UserRegistration.Migrations
                         .IsRequired();
 
                     b.Navigation("Reporter");
-                });
-
-            modelBuilder.Entity("UserRegistration.Model.Report", b =>
-                {
-                    b.Navigation("AllComments");
                 });
 #pragma warning restore 612, 618
         }

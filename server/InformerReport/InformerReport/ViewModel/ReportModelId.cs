@@ -2,7 +2,7 @@
 
 namespace InformerReport.ViewModel
 {
-    public class AllReportModel
+    public class ReportModelId
     {
         [Key]
         public int Id { get; set; }
@@ -17,6 +17,9 @@ namespace InformerReport.ViewModel
         public string Heading { get; set; }
 
         [Required]
+        public string Content { get; set; }
+
+        [Required]
         public int ReporterId { get; set; }
         [Required]
         public string FirstName { get; set; }
@@ -26,6 +29,5 @@ namespace InformerReport.ViewModel
         public string Photo { get; set; }
         [Required]
         public int Like { get; set; }
-
     }
 }

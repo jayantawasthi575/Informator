@@ -93,5 +93,45 @@ namespace InformerReport.Controllers
         {
             return Reporters.GetAllReportsForHome();
         }
+
+        [HttpPut("increaselike/{id}")]
+        public IActionResult IncreaseLike(int id)
+        {
+            var rep=_context.Reports.FirstOrDefault(c => c.Id == id);
+            rep.Like++;
+            _context.SaveChanges();
+            return Ok();
+        }
+
+        [HttpPut("decreaselike/{id}")]
+        public IActionResult DecreaseLike(int id)
+        {
+            var rep = _context.Reports.FirstOrDefault(c => c.Id == id);
+            rep.Like--;
+            _context.SaveChanges();
+            return Ok();
+        }
+
+        [HttpGet("viewreportbyid/{id}")]
+        public IEnumerable<ReportModelId> ViewReport(int id)
+        {
+            var rslt = _context.Reports.Where(c=>c.Id==id).Include(per => (per as Report).Reporter).ToList();
+            var rsl = rslt.Select(c => new ReportModelId()
+            {
+                Id = c.Id,
+                ReportName = c.ReportName,
+                Heading = c.Heading,
+                Content = c.Content,
+                Tags = c.Tags,
+                ReporterId = c.ReporterId,
+                FirstName = c.Reporter.FirstName,
+                LastName = c.Reporter.LastName,
+                Photo = c.Photo,
+                Like = c.Like
+            });
+            return rsl;
+        }
+
+        
     }
 }

@@ -79,7 +79,7 @@ function Report() {
                                                     <Link type="button" className="btn btn-sm btn-outline-secondary" to={"/report/edit/" + item.id}>Edit</Link>
                                                     <input type="button" value="Delete" className="btn btn-sm btn-outline-secondary" onClick={()=>deletedata(item.id)}/>
                                                 </div>
-                                                <small className="text-muted">Total Likes:</small>
+                                                <small className="text-muted">Total Likes:{item.like}</small>
                                             </div>
                                         </div>
                                     </div>

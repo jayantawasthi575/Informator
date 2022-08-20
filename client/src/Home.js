@@ -4,10 +4,12 @@ import { useContext, useEffect, useState } from "react";
 import AuthContext from './AuthContext'
 import AfterLoginNav from "./AfterLoginNav";
 import axios from "axios";
+import { Link } from "react-router-dom";
 function Home() {
     const { loggedIn, getloggedin } = useContext(AuthContext)
     const [img_urll,setimgurll]=useState(process.env.PUBLIC_URL + "./assests/images/thumbnail.svg")
-    const [arr, setarr] = useState([{id:"",reportName:"",tags:"",heading:"",reporterId:"",firstName:"",lastName:"",photo:""}])
+    const [arr, setarr] = useState([{id:"",reportName:"",tags:"",heading:"",reporterId:"",firstName:"",lastName:"",photo:"",like:0}])
+
     useEffect(()=>{
         async function senddat() {
             try {
@@ -29,6 +31,26 @@ function Home() {
         }
         senddat()
     },[])
+     async function likedata(id,index){
+        console.log("index",index)
+        try {
+            const data = localStorage.getItem("token")
+            let config = {
+                headers: {
+                    'Authorization': 'Bearer ' + data
+                }
+            }
+            console.log("hello")
+            //console.log(id)
+            const loggedinres = await axios.put("https://localhost:5008/api/Reporter/increaselike/"+id, undefined,config)
+            console.log(loggedinres)
+            arr[index].like=arr[index].like+1
+            setarr([...arr])
+            //setimgurll("https://localhost:5008/Images/"+arr[0].photo)
+        } catch (error) {
+            console.log(error)
+        }
+    }
     return (
         <>
         {loggedIn===true && <><AfterLoginNav/>
@@ -48,7 +70,7 @@ function Home() {
                     <div className="container-fluid">
 
                         <div className="row">
-                        {arr.map(item => {
+                        {arr.map((item,index)=> {
                         return (
                             <>
                             <div className="col-md-4">
@@ -62,10 +84,10 @@ function Home() {
                                             </div>
                                         <div className="d-flex justify-content-between align-items-center">
                                             <div className="btn-group">
-                                                <button type="button" className="btn btn-sm btn-outline-secondary">View</button>
-                                                <button type="button" className="btn btn-sm btn-outline-secondary">Edit</button>
+                                            <Link type="button" className="btn btn-sm btn-outline-secondary" to={"/viewreport/" + item.id}>View</Link>
+                                                <input type="button" value="Like" className="btn btn-sm btn-outline-secondary" onClick={()=>likedata(item.id,index)}/>
                                             </div>
-                                            <small className="text-muted">9 mins</small>
+                                            <small className="text-muted">Total No. Of Like:{item.like}</small>
                                         </div>
                                     </div>
                                 </div>

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace UserRegistration.Model
@@ -24,9 +25,14 @@ namespace UserRegistration.Model
         public string Photo { get; set; }
 
         [Required]
+        public int Like { get; set; } = 0;
+
+        [Required]
         [ForeignKey("Reporter")]
         public int ReporterId { get; set; }
         public UserRegister Reporter { get; set; }
+
+        public List<Comment> AllComments { get; set; }
 
     }
 }
