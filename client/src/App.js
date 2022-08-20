@@ -12,6 +12,7 @@ import Report from "./Report";
 import Check from "./Check";
 import ReportProfile from "./ReportProfile";
 import EditReport from "./EditReport";
+import PageNotFound from "./PageNotFound";
 function App() {
   const { loggedIn } = useContext(AuthContext);
   return (
@@ -21,23 +22,20 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login/>}/>
         <Route path="/signup" element={<Signup/>}/>
-        <Route path="/profile" element={<Profile/>}/>
-        <Route path="/updateprofile" element={<UpdateProfile/>}/>
-        <Route path="/writereport" element={<WriteReport/>}/>
-        <Route path="/report" element={<Report/>}/>
-        <Route path="/check" element={<Check/>}/>
+        <Route path='*' element={<PageNotFound/>} />
       </Routes>)}
       {loggedIn===true&&(
         <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/logout" element={<Logout/>}/>
         <Route path="/profile" element={<Profile/>}/>
-        <Route path="/updateprofile" element={<UpdateProfile/>}/>
+        <Route path="/updateprofile/:id" element={<UpdateProfile/>}/>
         <Route path="/writereport" element={<WriteReport/>}/>
         <Route path="/report" element={<Report/>}/>
         <Route path="/report/:id" element={<ReportProfile/>}/>
         <Route path="/report/edit/:id" element={<EditReport/>}/>
         <Route path="/check" element={<Check/>}/>
+        <Route path="*" element={<PageNotFound/>}/>
         </Routes>
       )}
     </div>

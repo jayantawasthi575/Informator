@@ -11,5 +11,6 @@ namespace InformerReport.Repository
         public IEnumerable<Report> GetReportByReporterId(int Id1, int Id2);
         public bool UpdateReport(int id, ReportModel rep);
         public void DeleteReportById(int id);
+        public IEnumerable<AllReportModel> GetAllReportsForHome();
     }
 }

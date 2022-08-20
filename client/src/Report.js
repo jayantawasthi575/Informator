@@ -3,7 +3,9 @@ import Navbar from './Navbar';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
-
+import AfterLoginNav from './AfterLoginNav';
+import { useContext } from "react";
+import AuthContext from './AuthContext'
 function Report() {
     const img_urll = process.env.PUBLIC_URL + "./assests/images/thumbnail.svg"
     const [arr, setarr] = useState([])
@@ -53,7 +55,7 @@ function Report() {
     }
     return (
         <>
-            <Navbar />
+            <AfterLoginNav/>
             <div className="container">
                 <br />
                 <hr />

@@ -2,6 +2,9 @@ import React, { Component, useEffect, useState } from 'react'
 import Navbar from './Navbar';
 import axios from 'axios';
 import { useParams } from 'react-router';
+import AfterLoginNav from './AfterLoginNav';
+import { useContext } from "react";
+import AuthContext from './AuthContext'
 function ReportProfile() {
     const img_urll = process.env.PUBLIC_URL + "./assests/images/thumbnail.svg"
     const [arr, setarr] = useState([])
@@ -25,9 +28,10 @@ function ReportProfile() {
         }
         senddata()
     }, [])
+    
     return (
         <>
-            <Navbar />
+            <AfterLoginNav/>
             <div className="container">
                 <br />
                 <hr />

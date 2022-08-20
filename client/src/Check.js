@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
+import AfterLoginNav from "./AfterLoginNav";
 import Navbar from "./Navbar";
 
 
@@ -29,7 +30,7 @@ function Check()
     }
     return(
         <>
-        <Navbar/>
+        <AfterLoginNav/>
             <form onSubmit={editho} style={{ display: "flex", flexDirection: "column" }} encType="multipart/form-data">
                 <label for="myfile" style={{color:"white",fontSize:"1.3rem"}}>Cover Image</label>
                 <input type="file" id="myfile" name="myfile"  onChange={handleimg}/>

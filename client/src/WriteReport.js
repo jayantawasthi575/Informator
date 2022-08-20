@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { useContext } from "react";
 import AuthContext from "./AuthContext.jsx";
 import axios from "axios"
+import AfterLoginNav from "./AfterLoginNav";
 function WriteReport() {
     const [ReportName,setReportName] = useState("")
     const [Tags, setTags] = useState("")
@@ -48,7 +49,7 @@ function WriteReport() {
     }
     return (
         <>
-            <Navbar />
+            <AfterLoginNav/>
             <div className="container">
                 <br />
                 <hr />

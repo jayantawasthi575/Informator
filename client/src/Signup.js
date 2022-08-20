@@ -34,7 +34,7 @@ function Signup() {
     useEffect(()=>{if(loggedIn){history("/",{replace:true})}},[])
     return (
         <>
-            <Navbar />
+            <Navbar/>
             <div className="container">
                 <br />
                 <hr />

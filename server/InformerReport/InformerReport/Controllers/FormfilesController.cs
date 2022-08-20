@@ -33,5 +33,7 @@ namespace InformerReport.Controllers
             }
             return imageName;
         }
+
+
     }
 }

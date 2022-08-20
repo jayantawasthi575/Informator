@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using System;
 using System.IO;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace InformerReport.Repository
 {
@@ -87,6 +88,22 @@ namespace InformerReport.Repository
                 _context.SaveChanges();
             }
 
+        }
+        public IEnumerable<AllReportModel> GetAllReportsForHome()
+        {
+            var rslt = _context.Reports.Include(per => (per as Report).Reporter).ToList();
+            var rsl = rslt.Select(c => new AllReportModel()
+            {
+                Id = c.Id,
+                ReportName = c.ReportName,
+                Heading = c.Heading,
+                Tags = c.Tags,
+                ReporterId = c.ReporterId,
+                FirstName = c.Reporter.FirstName,
+                LastName = c.Reporter.LastName,
+                Photo=c.Photo
+            });
+            return rsl;
         }
     }
 

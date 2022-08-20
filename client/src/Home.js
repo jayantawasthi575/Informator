@@ -1,15 +1,85 @@
 import Navbar from "./Navbar";
 import './App.css'
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import AuthContext from './AuthContext'
 import AfterLoginNav from "./AfterLoginNav";
+import axios from "axios";
 function Home() {
     const { loggedIn, getloggedin } = useContext(AuthContext)
-    const img_urll = process.env.PUBLIC_URL + "./assests/images/thumbnail.svg"
+    const [img_urll,setimgurll]=useState(process.env.PUBLIC_URL + "./assests/images/thumbnail.svg")
+    const [arr, setarr] = useState([{id:"",reportName:"",tags:"",heading:"",reporterId:"",firstName:"",lastName:"",photo:""}])
+    useEffect(()=>{
+        async function senddat() {
+            try {
+                const data = localStorage.getItem("token")
+                let config = {
+                    headers: {
+                        'Authorization': 'Bearer ' + data
+                    }
+                }
+                console.log("hello")
+                //console.log(id)
+                const loggedinres = await axios.get("https://localhost:5008/api/Reporter/getallreports", config)
+                console.log(loggedinres)
+                setarr(loggedinres.data)
+                //setimgurll("https://localhost:5008/Images/"+arr[0].photo)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        senddat()
+    },[])
     return (
         <>
-            {loggedIn === false && <Navbar />}
-            {loggedIn===true && <AfterLoginNav/>}
+        {loggedIn===true && <><AfterLoginNav/>
+        <main role="main">
+                <section className="jumbotron text-center">
+                    <div className="container">
+                        <h1 className="jumbotron-heading">Informator</h1>
+                        <p className="lead text-muted">Your Daily News Reporter<br/>Informator is an Indian English Language News Portal owned by Jayant Awasthi</p>
+                        <p>
+                            <a href="#" className="btn btn-primary mt-2 mr-2">Reports</a>
+                            <span className=""></span>
+                            <a href="#" className="btn btn-secondary mt-2 mr-2">Profile</a>
+                        </p>
+                    </div>
+                </section>
+                <div className="album py-5 bg-dark">
+                    <div className="container-fluid">
+
+                        <div className="row">
+                        {arr.map(item => {
+                        return (
+                            <>
+                            <div className="col-md-4">
+                                <div className="card mb-4 box-shadow">
+                                    <img className="card-img-top" src={"https://localhost:5008/Images/" + item.photo} alt="Card image cap" height="225"/>
+                                    <div className="card-body">
+                                    <h4 className="card-text">{item.reportName}</h4>
+                                            <div className="d-flex justify-content-between align-items-center">
+                                                <p className="card-text">{item.heading}</p>
+                                                <p className="card-text">{item.tags}</p>
+                                            </div>
+                                        <div className="d-flex justify-content-between align-items-center">
+                                            <div className="btn-group">
+                                                <button type="button" className="btn btn-sm btn-outline-secondary">View</button>
+                                                <button type="button" className="btn btn-sm btn-outline-secondary">Edit</button>
+                                            </div>
+                                            <small className="text-muted">9 mins</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </>
+                        )})}
+                        </div>
+                    </div>
+                </div>
+        </main>
+        </>}
+            {loggedIn === false && 
+            <>
+            <Navbar/>
             <main role="main">
                 <section className="jumbotron text-center">
                     <div className="container">
@@ -166,6 +236,8 @@ function Home() {
                     </div>
                 </div>
             </main>
+            </>
+            }
             <footer class="text-muted">
                 <div class="container">
                     <p class="float-right">

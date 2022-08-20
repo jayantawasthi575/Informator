@@ -8,10 +8,13 @@ using System.Linq;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Cors;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 
 namespace InformerReport.Controllers
 {
     [EnableCors("MyCorsPolicy")]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ReporterController : ControllerBase
@@ -85,5 +88,10 @@ namespace InformerReport.Controllers
             return Ok();
         }
 
+        [HttpGet("getallreports")]
+        public IEnumerable<AllReportModel> GetAllReport()
+        {
+            return Reporters.GetAllReportsForHome();
+        }
     }
 }
