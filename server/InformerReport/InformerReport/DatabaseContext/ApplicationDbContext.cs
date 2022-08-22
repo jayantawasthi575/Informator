@@ -11,5 +11,6 @@ namespace InformerReport.DatabaseContext
 
         public DbSet<Report> Reports { get; set; }
         public DbSet<UserRegister> UserRegisters { get; set; }
+        public DbSet<Comment> Comments { get; set; }
     }
 }

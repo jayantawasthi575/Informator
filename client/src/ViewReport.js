@@ -10,6 +10,7 @@ function ViewReport() {
     const img_urll = process.env.PUBLIC_URL + "./assests/images/thumbnail.svg"
     const [arr, setarr] = useState([])
     let { id } = useParams()
+    const [comment, setComment] = useState("")
     useEffect(() => {
         async function senddata() {
             try {
@@ -29,7 +30,7 @@ function ViewReport() {
         }
         senddata()
     }, [])
-    async function likedata(id, index) {
+    async function addComment(id, firstName, lastName, index) {
         console.log("index", index)
         try {
             const data = localStorage.getItem("token")
@@ -38,11 +39,16 @@ function ViewReport() {
                     'Authorization': 'Bearer ' + data
                 }
             }
-            console.log("hello")
-            //console.log(id)
-            const loggedinres = await axios.put("https://localhost:5008/api/Reporter/increaselike/" + id, undefined, config)
+            const datatosend = {
+                "firstName": firstName,
+                "lastName": lastName,
+                "message": comment,
+                "infoReportId": id
+            }
+            const loggedinres = await axios.post("https://localhost:5008/api/Reporter/AddComment", datatosend, config)
             console.log(loggedinres)
-            arr[index].like = arr[index].like + 1
+
+            arr[index].comments.push(datatosend)
             setarr([...arr])
             //setimgurll("https://localhost:5008/Images/"+arr[0].photo)
         } catch (error) {
@@ -65,6 +71,19 @@ function ViewReport() {
                                 <p>{item.content}</p>
                                 <Link type="button" className="btn btn-sm btn-outline-secondary" to={"/viewprofile/" + item.reporterId}>By-{item.firstName} {item.lastName}</Link>
                                 <p className="text-primary">Total No. Of Like:{item.like}</p>
+                                <div>
+                                    <input type="text" className="form-control" placeholder="Add Comment"  onChange={(e) => { setComment(e.target.value) }} required />
+                                    <br />
+                                    <button type="submit" className="btn btn-primary btn-block" onClick={() => addComment(item.id, item.userFirstName, item.userLastName, index)}>Add Comment</button>
+                                </div>
+                                <br/>
+                                {item.comments.map((it, index) => {
+                                    return (
+                                        <div className="d-flex">
+                                            <h4>{it.firstName} {it.lastName} - {it.message}</h4>
+                                        </div>
+                                    )
+                                })}
                             </div>
                         )
                     })}

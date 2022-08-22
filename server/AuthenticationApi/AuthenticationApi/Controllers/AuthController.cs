@@ -1,5 +1,6 @@
 ﻿using AuthenticationApi.DatabaseContext;
 using AuthenticationApi.Model;
+using AuthenticationApi.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
@@ -21,10 +22,12 @@ namespace AuthenticationApi.Controllers
     {
         private IConfiguration _config;
         private readonly ApplicationDbContext _context;
-        public AuthController(IConfiguration config, ApplicationDbContext context)
+        private readonly IRepo _Repo;
+        public AuthController(IConfiguration config, ApplicationDbContext context,IRepo Repo)
         {
             _config = config;
             _context = context;
+            _Repo = Repo;
         }
         [AllowAnonymous]
         [HttpPost]
@@ -69,7 +72,7 @@ namespace AuthenticationApi.Controllers
         }
         private UserRegister Authenticate(Login userLogin)
         {
-            var currentUser = _context.UserRegisters.FirstOrDefault(o => o.Email.ToLower() == userLogin.Email.ToLower() && o.Password == userLogin.Password); 
+            var currentUser = _Repo.AuthUser(userLogin); 
 
             if (currentUser != null)
             {

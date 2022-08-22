@@ -115,7 +115,11 @@ namespace InformerReport.Controllers
         [HttpGet("viewreportbyid/{id}")]
         public IEnumerable<ReportModelId> ViewReport(int id)
         {
-            var rslt = _context.Reports.Where(c=>c.Id==id).Include(per => (per as Report).Reporter).ToList();
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            var userClaims = identity.Claims;
+            string EmailAddress = userClaims.FirstOrDefault(o => o.Type == ClaimTypes.Email)?.Value;
+            UserRegister user = _context.UserRegisters.FirstOrDefault(o => o.Email == EmailAddress);
+            var rslt = _context.Reports.Where(c => c.Id == id).Include(per => (per as Report).Reporter).ToList();
             var rsl = rslt.Select(c => new ReportModelId()
             {
                 Id = c.Id,
@@ -127,11 +131,26 @@ namespace InformerReport.Controllers
                 FirstName = c.Reporter.FirstName,
                 LastName = c.Reporter.LastName,
                 Photo = c.Photo,
-                Like = c.Like
+                Like = c.Like,
+                UserFirstName=user.FirstName,
+                UserLastName=user.LastName,
+                Comments = _context.Comments.Where(c => c.InfoReportId == id).Select(cp => new Commen()
+                {
+                    Id=cp.Id,
+                    FirstName=cp.FirstName,
+                    LastName=cp.LastName,
+                    Message=cp.Message
+                }).ToList()
             });
             return rsl;
         }
-
+        [HttpPost("AddComment")]
+        public IActionResult AddComment([FromBody] Comment comm)
+        {
+            _context.Comments.Add(comm);
+            _context.SaveChanges();
+            return Ok();
+        }
         
     }
 }

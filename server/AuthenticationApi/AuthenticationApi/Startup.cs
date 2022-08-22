@@ -1,4 +1,5 @@
 using AuthenticationApi.DatabaseContext;
+using AuthenticationApi.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -33,6 +34,7 @@ namespace AuthenticationApi
         {
             services.AddDbContext<ApplicationDbContext>
                (options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddTransient<IRepo, Repo>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options => {
                     options.TokenValidationParameters = new TokenValidationParameters
@@ -62,7 +64,7 @@ namespace AuthenticationApi
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
@@ -70,10 +72,11 @@ namespace AuthenticationApi
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "AuthenticationApi v1"));
             }
-
+            //loggerFactory.AddFile("Logs/mylog.txt");
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            loggerFactory.AddLog4Net();
 
             app.UseAuthentication();
 

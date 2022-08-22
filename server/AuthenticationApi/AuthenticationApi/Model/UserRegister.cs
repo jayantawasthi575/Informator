@@ -15,5 +15,10 @@ namespace AuthenticationApi.Model
         [Required]
         public string Password { get; set; }
         public string Role { get; set; }
+        public string? Photo { get; set; }
+        public string? Age { get; set; }
+        public string? PhoneNumber { get; set; }
+        public string? Education { get; set; }
+        public string? Country { get; set; }
     }
 }

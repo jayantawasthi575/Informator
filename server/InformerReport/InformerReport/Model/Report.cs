@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace InformerReport.Model
@@ -25,6 +26,8 @@ namespace InformerReport.Model
 
         [Required]
         public int Like { get; set; } = 0;
+
+        public List<Comment> Comments;
       
        [Required]
        [ForeignKey("Reporter")]

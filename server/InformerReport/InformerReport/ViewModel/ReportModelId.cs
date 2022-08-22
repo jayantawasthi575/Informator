@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using InformerReport.Model;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace InformerReport.ViewModel
 {
@@ -29,5 +31,8 @@ namespace InformerReport.ViewModel
         public string Photo { get; set; }
         [Required]
         public int Like { get; set; }
+        public string UserFirstName { get; set; }
+        public string UserLastName { get; set; }
+        public List<Commen> Comments { get; set; }
     }
 }
