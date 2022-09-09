@@ -60,9 +60,9 @@ function Home() {
                         <h1 className="jumbotron-heading">Informator</h1>
                         <p className="lead text-muted">Your Daily News Reporter<br/>Informator is an Indian English Language News Portal owned by Jayant Awasthi</p>
                         <p>
-                            <a href="#" className="btn btn-primary mt-2 mr-2">Reports</a>
+                            <Link class="btn btn-primary mt-2 mr-2" to="/profile">Profile</Link>
                             <span className=""></span>
-                            <a href="#" className="btn btn-secondary mt-2 mr-2">Profile</a>
+                            <Link class="btn btn-secondary mt-2 mr-2" to="/report">Report</Link>
                         </p>
                     </div>
                 </section>
@@ -103,14 +103,14 @@ function Home() {
             <>
             <Navbar/>
             <main role="main">
-                <section className="jumbotron text-center">
+            <section className="jumbotron text-center">
                     <div className="container">
-                        <h1 className="jumbotron-heading">Album example</h1>
-                        <p className="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don't simply skip over it entirely.</p>
+                        <h1 className="jumbotron-heading">Informator</h1>
+                        <p className="lead text-muted">Your Daily News Reporter<br/>Informator is an Indian English Language News Portal owned by Jayant Awasthi</p>
                         <p>
-                            <a href="#" className="btn btn-primary mt-2 mr-2">Main call to action</a>
+                            <Link class="btn btn-primary mt-2 mr-2" to="/login">Login</Link>
                             <span className=""></span>
-                            <a href="#" className="btn btn-secondary mt-2 mr-2">Secondary action</a>
+                            <Link class="btn btn-secondary mt-2 mr-2" to="/signup">SignUp</Link>
                         </p>
                     </div>
                 </section>

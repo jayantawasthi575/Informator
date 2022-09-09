@@ -15,6 +15,7 @@ import EditReport from "./EditReport";
 import PageNotFound from "./PageNotFound";
 import ViewReport from "./ViewReport";
 import ViewProfile from "./ViewProfile";
+import Admin from "./Admin";
 function App() {
   const { loggedIn } = useContext(AuthContext);
   return (
@@ -38,7 +39,7 @@ function App() {
         <Route path="/report/edit/:id" element={<EditReport/>}/>
         <Route path="/viewreport/:id" element={<ViewReport/>}/>
         <Route path="/viewprofile/:id" element={<ViewProfile/>}/>
-        <Route path="/check" element={<Check/>}/>
+        <Route path="/Admin" element={<Admin/>}/>
         <Route path="*" element={<PageNotFound/>}/>
         </Routes>
       )}

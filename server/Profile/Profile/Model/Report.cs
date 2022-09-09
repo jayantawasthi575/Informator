@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Profile.Model
@@ -27,6 +28,6 @@ namespace Profile.Model
         [ForeignKey("Reporter")]
         public int ReporterId { get; set; }
         public UserRegister Reporter { get; set; }
-
+        public List<Comment> AllComments { get; set; }
     }
 }

@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Cors;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
 using UserRegistration.DatabaseContext;
 using UserRegistration.Model;
 
@@ -24,5 +27,6 @@ namespace UserRegistration.Controllers
             _context.SaveChanges();
             return Ok();
         }
+        
     }
 }

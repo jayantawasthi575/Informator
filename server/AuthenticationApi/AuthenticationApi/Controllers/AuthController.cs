@@ -6,8 +6,10 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -23,11 +25,13 @@ namespace AuthenticationApi.Controllers
         private IConfiguration _config;
         private readonly ApplicationDbContext _context;
         private readonly IRepo _Repo;
-        public AuthController(IConfiguration config, ApplicationDbContext context,IRepo Repo)
+        private readonly ILogger _logger;
+        public AuthController(IConfiguration config, ApplicationDbContext context,IRepo Repo,ILogger<AuthController> logger)
         {
             _config = config;
             _context = context;
             _Repo = Repo;
+            _logger = logger;
         }
         [AllowAnonymous]
         [HttpPost]
@@ -42,6 +46,7 @@ namespace AuthenticationApi.Controllers
             if (user != null)
             {
                 var token = GenerateJsonWebToken(user);
+                _logger.LogInformation("User LoggedIn");
                 return Ok(new { token = token });
             }
 
@@ -80,6 +85,13 @@ namespace AuthenticationApi.Controllers
             }
 
             return null;
+        }
+        [Authorize(Roles = "Admin")]
+        [HttpGet("Admin")]
+        public IEnumerable<UserRegister> CheckAdmin()
+        {
+            _logger.LogInformation("Admin is Here");
+            return _context.UserRegisters.ToList();
         }
     }
 }

@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Cors;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace InformerReport.Controllers
 {
@@ -21,10 +22,12 @@ namespace InformerReport.Controllers
     {
         private ApplicationDbContext _context;
         private IReportInfo Reporters;
-        public ReporterController(ApplicationDbContext context, IReportInfo reportInfo)
+        private readonly ILogger _logger;
+        public ReporterController(ApplicationDbContext context, IReportInfo reportInfo,ILogger<ReporterController> logger)
         {
             _context = context;
             Reporters = reportInfo;
+            _logger = logger;
         }
 
         [HttpPost]
@@ -37,6 +40,7 @@ namespace InformerReport.Controllers
 
             if (Reporters.AddReport(Rep, user.Id))
             {
+                _logger.LogInformation("Report Added");
                 return Ok();
             }
             else
@@ -84,6 +88,7 @@ namespace InformerReport.Controllers
         [HttpDelete("deletereportbyid/{id}")]
         public IActionResult DeleteReportById(int id)
         {
+            _logger.LogWarning("Report Deleted");
             Reporters.DeleteReportById(id);
             return Ok();
         }
@@ -106,6 +111,7 @@ namespace InformerReport.Controllers
         [HttpPut("decreaselike/{id}")]
         public IActionResult DecreaseLike(int id)
         {
+            _logger.LogWarning("like decreases");
             var rep = _context.Reports.FirstOrDefault(c => c.Id == id);
             rep.Like--;
             _context.SaveChanges();
@@ -147,6 +153,7 @@ namespace InformerReport.Controllers
         [HttpPost("AddComment")]
         public IActionResult AddComment([FromBody] Comment comm)
         {
+            _logger.LogInformation("Comment Added");
             _context.Comments.Add(comm);
             _context.SaveChanges();
             return Ok();
